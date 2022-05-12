@@ -85,15 +85,15 @@ describe("Transactions", () => {
         types,
         value
       );
-      // await expect(
-      //   airdrop.claimAirdrop(
-      //     other1.address,
-      //     value.amount,
-      //     value.token,
-      //     value.nonce,
-      //     sig
-      //   )
-      // ).to.be.revertedWith("invalid sig");
+      await expect(
+        airdrop.claimAirdrop(
+          other1.address,
+          value.amount,
+          value.token,
+          value.nonce,
+          sig
+        )
+      ).to.be.revertedWith("invalid sig");
       await token.enableTrading();
       await expect(
         airdrop.claimAirdrop(
@@ -106,18 +106,18 @@ describe("Transactions", () => {
       )
         .to.emit(airdrop, "Claimed")
         .withArgs(value.account, value.amount);
-      // await expect(
-      //   airdrop.claimAirdrop(
-      //     value.account,
-      //     value.amount,
-      //     value.token,
-      //     value.nonce,
-      //     sig
-      //   )
-      // ).to.be.revertedWith("used nonce|claimed|!claimable");
-      // expect(await airdrop.balanceClaimable(token.address)).to.equal(
-      //   expandToPowers(1, 9)
-      // );
+      await expect(
+        airdrop.claimAirdrop(
+          value.account,
+          value.amount,
+          value.token,
+          value.nonce,
+          sig
+        )
+      ).to.be.revertedWith("used nonce|claimed|!claimable");
+      expect(await airdrop.balanceClaimable(token.address)).to.equal(
+        expandToPowers(9, 10)
+      );
     });
   });
 });

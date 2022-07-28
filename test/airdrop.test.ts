@@ -65,10 +65,10 @@ describe("Transactions", () => {
       await expect(
         airdrop
           .connect(other0)
-          .addClaimableToken(token.address, expandToPowers(10, 10))
+          .addClaimableToken(token.address, expandToPowers(10, 10), true)
       ).to.revertedWith("Ownable: caller is not the owner");
       await expect(
-        airdrop.addClaimableToken(token.address, expandToPowers(10, 10))
+        airdrop.addClaimableToken(token.address, expandToPowers(10, 10), true)
       )
         .to.emit(airdrop, "AddClaimable")
         .withArgs(token.address, expandToPowers(10, 10));
